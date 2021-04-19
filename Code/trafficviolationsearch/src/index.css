@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.navBar-list {
+  align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: rgba(0, 0, 1);
+    box-shadow: 0 5px 15px rgba(0,0,0);
+    transition: .5s;
+}
+
+.navBar-list ul{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    transition: .5s;
+}
+
+.navBar-list li{
+  list-style: none;
+    width: 340px;
+}
+
+.navBar-list li a{
+  position: relative;
+    display: block;
+    padding: 10px 30px;
+    margin: 0 50px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: whitesmoke;
+    font-weight: bold;
+    transition: .5s;
+    font-size: 18px;
+}
+
+.navBar-brand {
+    position: relative;
+    display: block;
+    padding: 10px 30px;
+    margin: 0 50px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: whitesmoke;
+    font-weight: bold;
+    transition: .5s;
+    font-size: 18px;
+    font-family: 'Arvo', serif;
+    font-size: xx-large;
+    text-align: center;
+}
+
+table, td, td {
+  border: 1px solid black;
+}
