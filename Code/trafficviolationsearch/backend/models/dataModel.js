@@ -21,7 +21,7 @@ const mongoose = require('mongoose');
 //     geolocation: {type: String}
 // },{collection:'trafficviolations'});
 
-const violationDataSchema = new mongoose.Schema({},{collection:'trafficviolations'});
+const violationDataSchema = new mongoose.Schema({},{collection:'violations'});
 
 violationDataSchema.method("toJSON", function() {
     const { __v, _id, ...object } = this.toObject();
