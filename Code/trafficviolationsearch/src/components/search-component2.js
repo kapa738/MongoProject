@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import ReactiveButton from 'reactive-button';
+
 import geoSearchPage from './geoSearchPage.component'
 
 const Document = props => {
@@ -109,19 +111,23 @@ documentList() {
   render() {
     return (
       <div>
-         <h3>Traffic Violation Search:</h3>
+        <div className="header">
+                <h3>Traffic Violation Results Search:</h3>
+                </div>
          <form onSubmit={this.onSubmit}>
-            <div onChange={this.onChangeList}>
+            <div className="choice" onChange={this.onChangeList}>
              <input type="radio" value="florida" name="city"/>Florida
              <input type="radio" value="westvirginia" name="city"/>West Virginia
              <input type="radio" value="virginia" name="city"/>Virginia
              <input type="radio" value="maryland" name="city"/>Maryland
            </div>
-           <div className="form-group">
+           <div className="form-group1">
              <input  type="text" required className="form-control" value={this.state.geoCoordinates} onChange={this.onChangeList}/>
            </div>
            <div className="form-group">
-             <input type="submit" value="submit" className="btn btn-primary" />
+             <ReactiveButton rounded type="submit" value="submit" className="btn btn-primary" color="primary" width="250px" height= "60px" animation="yes">
+              View More
+        </ReactiveButton>
            </div>
          </form>
          {/* <table className="table">

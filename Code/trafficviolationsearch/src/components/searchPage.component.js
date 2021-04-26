@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import ReactiveButton from 'reactive-button';
 import searchResults from './searchResults.component';
 
 
@@ -33,17 +33,18 @@ const Document = props => (
       description: '',
       document:'',
       clickInput: false,
-      comments: [],
-      commentText:''
+      commentText:'',
+      comments: []
     }
     this.state = {documents: []};
 
   }
 
   onChangeList(e) {
+    //console.log(this.state.commentText)
+    //console.log(this.state.comments)
     this.setState({
-      commentText: e.target.value,
-      comments: this.state.comments.concat(this.state.commentText)
+      commentText: e.target.value
     })
    }
 
@@ -57,11 +58,12 @@ onSubmit(e) {
   e.preventDefault();
 
   const commentData = {
-    comments: this.state.comments,
+    commentText: this.state.commentText,
   }
 
-   axios.put('http://localhost:5000/users/addComments/' +this.props.data.id, commentData)
+   axios.put('http://localhost:5000/functions/addComments/' +this.props.data.id+"/"+ this.state.commentText)
    .then(response => {
+     console.log(this.state.comments)
     console.log(response.data)
   })
   .catch((error) => {
@@ -73,7 +75,6 @@ onSubmit(e) {
     //  .then(response => {
     //     this.setState({
     //       description: response.data.description
-  
     //     })
     //     console.log(response.data);
     //   })
@@ -93,10 +94,10 @@ documentList() {
 
   render() {
     return (
-      <div>
+      <div className>
           {
               this.state.clickInput?
-              <div>
+              <div className="tb">
                 <h3>Traffic Violation Results Page:</h3>
                 <table className="table">
                 <thead className="thead-light">
@@ -125,9 +126,9 @@ documentList() {
                     <td>{this.props.data.belts}</td>
                     <td>{this.props.data.fatal}</td>
                     <td>{this.props.data.alcohol}</td>
-                    <td>{this.props.data.state}</td>
                     <td>{this.props.data.vehicleType}</td>
                     <td>{this.props.data.make}</td> */}
+                    <td><img src="../images/maryland.png"/></td>
                     <td>{this.props.data.comments[0]}</td>
                 </tr>
                 </tbody>
@@ -137,13 +138,20 @@ documentList() {
 
               <div></div>
             }
-        <button
+        {/* <button
               type="button"
               className="make-button-link"
               onClick={this.handleAddSecondInput}
             >
               View More
-        </button>
+        </button> */}
+        <ReactiveButton rounded value="submit" className="btn btn-primary" color="primary" width="30px" height= "20px" animation="yes"
+              type="button"
+              className="make-button-link"
+              onClick={this.handleAddSecondInput}
+            >
+           <span>VIEW</span>  
+        </ReactiveButton>
         <h3> Add comments:</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">

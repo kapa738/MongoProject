@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import ReactiveButton from 'reactive-button';
 import searchResults from './searchResults.component';
 
 
@@ -117,13 +117,18 @@ documentList() {
 
               <div></div>
             }
-        <button
+        {/* <button
               type="button"
               className="make-button-link"
               onClick={this.handleAddSecondInput}
             >
               View More
-        </button>
+        </button> */}
+        <ReactiveButton rounded  type="button"
+            className="make-button-link"
+            onClick={this.handleAddSecondInput} color="primary" width="70px" height= "60px" animation="yes">
+            View More
+      </ReactiveButton>
        </div>
     )
   }

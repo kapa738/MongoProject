@@ -101,7 +101,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import searchPage from './searchPage.component';
-
+import ReactiveButton from 'reactive-button';
 
 const Document = props => {
   // <tr>
@@ -117,6 +117,7 @@ const Document = props => {
   //   <td>{props.document.make}</td>
   //   <td>{props.document.charge}</td>
   // </tr>
+
 
   const message = () =>{
     // return <Link to="/" component={searchPage} data={props.document}>Click Here</Link>
@@ -203,9 +204,11 @@ documentList() {
   render() {
     return (
       <div>
+        <div className="header">
          <h3>Traffic Violation Search:</h3>
+         </div>
          <form onSubmit={this.onSubmit}>
-           <div className="form-group">
+           <div className="form-group1">
 
              <input  type="text"
                  required
@@ -215,7 +218,9 @@ documentList() {
                  />
            </div>
            <div className="form-group">
-             <input type="submit" value="submit" className="btn btn-primary" />
+           <ReactiveButton rounded type="submit" value="submit" className="btn btn-primary" color="primary" width="250px" height= "60px" animation="yes">
+              View More
+        </ReactiveButton>  <span>  </span>
            </div>
          </form>
          {/* <table className="table">
@@ -238,9 +243,13 @@ documentList() {
              { this.documentList()}
            </tbody>
          </table> */}
-         <ul>
-            { this.documentList()}
+          <div className="list">
+        <ul>
+           
+           <span>{ this.documentList()}</span>
+           
          </ul>
+         </div>
        </div>
     )
   }
