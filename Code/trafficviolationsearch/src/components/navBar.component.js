@@ -17,12 +17,12 @@ export default class navBar extends Component {
                         </li>
                         <li className="navBar-item">
                             <a>
-                                <Link to="/search" className="nav-link">Search documents</Link>
+                                <Link to="/search" className="nav-link">Search by word</Link>
                             </a>
                         </li>
                         <li className="navBar-item">
                             <a>
-                                <Link to="/add" className="nav-link">Add Comments</Link>
+                                <Link to="/geoSearch" className="nav-link">Search by Geolocation</Link>
                             </a>
                         </li>
                     </ul>

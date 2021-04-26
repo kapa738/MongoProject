@@ -2,22 +2,40 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Document = props => (
-  <tr>
-    <td>{props.document.subAgency}</td>
-    <td>{props.document.description}</td>
-    <td>{props.document.location}</td>
-    <td>{props.document.accident}</td>
-    <td>{props.document.belts}</td>
-    <td>{props.document.fatal}</td>
-    <td>{props.document.alcohol}</td>
-    <td>{props.document.state}</td>
-    <td>{props.document.vehicleType}</td>
-    <td>{props.document.make}</td>
-    <td>{props.document.charge}</td>
-    <td>{props.document.geoLoc.coordinates[0] + ',' + props.document.geoLoc.coordinates[1]}</td>
-  </tr>
-)
+import geoSearchPage from './geoSearchPage.component'
+
+const Document = props => {
+  // <tr>
+  //   <td>{props.document.subAgency}</td>
+  //   <td>{props.document.description}</td>
+  //   <td>{props.document.location}</td>
+  //   <td>{props.document.accident}</td>
+  //   <td>{props.document.belts}</td>
+  //   <td>{props.document.fatal}</td>
+  //   <td>{props.document.alcohol}</td>
+  //   <td>{props.document.state}</td>
+  //   <td>{props.document.vehicleType}</td>
+  //   <td>{props.document.make}</td>
+  //   <td>{props.document.charge}</td>
+  // </tr>
+  return (
+
+  // <tr>
+  //   <td>
+  //     {/* <Link to="/trafficviolationsearch/src/components/searchPage.component.js" desc={props.document}>
+  //         {props.document.description}
+  //       </Link> */}
+  //     <Link to="/trafficviolationsearch/src/components/searchPage.component.js" data={props.document}>{props.document.description}</Link>
+  //   </td>
+  // </tr>
+  <li>
+    <a>{props.document.description}</a>
+    {/* <div><button onClick={message}>Click Here</button></div> */}
+    <Link to="/" component={geoSearchPage} data={props.document}>Click Here</Link>
+    {/* <a href={'./searchPage'}>Click Here</a> */}
+  </li>
+  )
+}
 
 export default class searchList extends Component {
   constructor(props) {
@@ -33,9 +51,26 @@ export default class searchList extends Component {
   }
 
 onChangeList(e) {
-  this.setState({
-    geoCoordinates: [-77.09310515, 38.9835782]
-  })
+  if(e.target.value == 'florida'){
+    this.setState({
+      geoCoordinates: [-77.0633916666667, 39.15305]
+    })
+  }
+  else if(e.target.value == 'westvirginia'){
+    this.setState({
+      geoCoordinates: [-76.9841983333333, 39.0293466666667]
+    })
+  }
+  else if(e.target.value == 'virginia'){
+    this.setState({
+      geoCoordinates: [-77.14941, 39.067535]
+    })
+  }
+  else if(e.target.value == 'maryland'){
+    this.setState({
+      geoCoordinates: [-77.09310515, 38.9835782]
+    })
+  }
 }
 
 onSubmit(e) {
@@ -76,6 +111,12 @@ documentList() {
       <div>
          <h3>Traffic Violation Search:</h3>
          <form onSubmit={this.onSubmit}>
+            <div onChange={this.onChangeList}>
+             <input type="radio" value="florida" name="city"/>Florida
+             <input type="radio" value="westvirginia" name="city"/>West Virginia
+             <input type="radio" value="virginia" name="city"/>Virginia
+             <input type="radio" value="maryland" name="city"/>Maryland
+           </div>
            <div className="form-group">
              <input  type="text" required className="form-control" value={this.state.geoCoordinates} onChange={this.onChangeList}/>
            </div>
@@ -83,7 +124,7 @@ documentList() {
              <input type="submit" value="submit" className="btn btn-primary" />
            </div>
          </form>
-         <table className="table">
+         {/* <table className="table">
            <thead className="thead-light">
              <tr>
                <th>SubAgency</th>
@@ -103,7 +144,10 @@ documentList() {
            <tbody>
              { this.documentList()}
            </tbody>
-         </table>
+         </table> */}
+         <ul>
+            { this.documentList()}
+         </ul>
        </div>
     )
   }

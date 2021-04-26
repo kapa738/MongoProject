@@ -100,23 +100,47 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import searchPage from './searchPage.component';
 
-const Document = props => (
-  <tr>
-    <td>{props.document.subAgency}</td>
-    <td>{props.document.description}</td>
-    <td>{props.document.location}</td>
-    <td>{props.document.accident}</td>
-    <td>{props.document.belts}</td>
-    <td>{props.document.fatal}</td>
-    <td>{props.document.alcohol}</td>
-    <td>{props.document.state}</td>
-    <td>{props.document.vehicleType}</td>
-    <td>{props.document.make}</td>
-    <td>{props.document.charge}</td>
-    <td>{props.document.geoLoc.coordinates}</td>
-  </tr>
-)
+
+const Document = props => {
+  // <tr>
+  //   <td>{props.document.subAgency}</td>
+  //   <td>{props.document.description}</td>
+  //   <td>{props.document.location}</td>
+  //   <td>{props.document.accident}</td>
+  //   <td>{props.document.belts}</td>
+  //   <td>{props.document.fatal}</td>
+  //   <td>{props.document.alcohol}</td>
+  //   <td>{props.document.state}</td>
+  //   <td>{props.document.vehicleType}</td>
+  //   <td>{props.document.make}</td>
+  //   <td>{props.document.charge}</td>
+  // </tr>
+
+  const message = () =>{
+    // return <Link to="/" component={searchPage} data={props.document}>Click Here</Link>
+    return <searchPage data={props.document}/>
+  }
+
+  return (
+
+  // <tr>
+  //   <td>
+  //     {/* <Link to="/trafficviolationsearch/src/components/searchPage.component.js" desc={props.document}>
+  //         {props.document.description}
+  //       </Link> */}
+  //     <Link to="/trafficviolationsearch/src/components/searchPage.component.js" data={props.document}>{props.document.description}</Link>
+  //   </td>
+  // </tr>
+  <li>
+    <a>{props.document.description}</a>
+    {/* <div><button onClick={message}>Click Here</button></div> */}
+    <Link to="/" component={searchPage} data={props.document}>Click Here</Link>
+    {/* <a href={'./searchPage'}>Click Here</a> */}
+  </li>
+  )
+}
 
 export default class searchList extends Component {
   constructor(props) {
@@ -170,6 +194,12 @@ documentList() {
       })
     }
 
+    singleDocList() {
+      return this.state.documents.map(details => {
+        return <Document document={details}/>;
+      })
+    }
+
   render() {
     return (
       <div>
@@ -188,7 +218,7 @@ documentList() {
              <input type="submit" value="submit" className="btn btn-primary" />
            </div>
          </form>
-         <table className="table">
+         {/* <table className="table">
            <thead className="thead-light">
              <tr>
                <th>SubAgency</th>
@@ -202,13 +232,15 @@ documentList() {
                <th>VehicleType</th>
                <th>Make</th>
                <th>Charge</th>
-              <th>Geolocation</th>
              </tr>
            </thead>
            <tbody>
              { this.documentList()}
            </tbody>
-         </table>
+         </table> */}
+         <ul>
+            { this.documentList()}
+         </ul>
        </div>
     )
   }
