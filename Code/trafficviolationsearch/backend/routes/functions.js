@@ -69,10 +69,10 @@ router.route('/search/:description').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
   })
 
-  router.route('/addComments/:id').put((req, res) => {
+  router.route('/addComments/:id/:comment').put((req, res) => {
     violationData.findById(req.params.id)
       .then(document => {
-        document.comments = req.body.comments;
+        document.commentText = req.params.comment;
         document.save()
           .then(() => res.json('Exercise updated!'))
           .catch(err => res.status(400).json('Error: ' + err));
