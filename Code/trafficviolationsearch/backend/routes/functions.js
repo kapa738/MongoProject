@@ -38,6 +38,17 @@ router.route('/search/:description').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
   })
 
+  router.route('/searchPage/:description').get((req, res) => {
+    var desc = req.params.description;
+   //var regEx = "/" + desc+ "/gmi";
+    violationData.find({"description":{$regex: new RegExp(desc), $options:"gmi"}}).limit(5)
+    .then(data => {
+    console.log(data);
+      res.json(data)
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
+  })
+
   router.route('/geoSearch/:longitude/:latitude').get((req, res) => {
     var long = req.params.longitude;
     var lat = req.params.latitude;
@@ -48,7 +59,7 @@ router.route('/search/:description').get((req, res) => {
                     type:"Point",
                     coordinates: [long, lat]
                 },
-                $maxDistance: 10
+                $maxDistance: 500
             }
         }
     }).limit(5)
