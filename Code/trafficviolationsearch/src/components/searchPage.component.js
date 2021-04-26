@@ -29,21 +29,23 @@ const Document = props => (
     this.onChangeList = this.onChangeList.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleAddSecondInput = this.handleAddSecondInput.bind(this);
-    
     this.state = {
       description: '',
       document:'',
-      clickInput: false
+      clickInput: false,
+      comments: [],
+      commentText:''
     }
     this.state = {documents: []};
 
   }
 
   onChangeList(e) {
-  this.setState({
-    description: e.target.value
-  })
-}
+    this.setState({
+      commentText: e.target.value,
+      comments: this.state.comments.concat(this.state.commentText)
+    })
+   }
 
 handleAddSecondInput () {
     this.setState({
@@ -52,9 +54,38 @@ handleAddSecondInput () {
 }
 
 onSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
 
+  const commentData = {
+    comments: this.state.comments,
   }
+
+   axios.put('http://localhost:5000/users/addComments/' +this.props.data.id, commentData)
+   .then(response => {
+    console.log(response.data)
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+
+
+    //  axios.post('http://localhost:5000/users/addComments', user)
+    //  .then(response => {
+    //     this.setState({
+    //       description: response.data.description
+  
+    //     })
+    //     console.log(response.data);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   })
+
+
+  this.setState({
+    username: ''
+  })
+}
 
 documentList() {
         return <Document document={this.props.data}/>;
@@ -71,7 +102,7 @@ documentList() {
                 <thead className="thead-light">
                     <tr>
                     <th>SubAgency</th>
-                    <th>Description</th>
+                    {/* <th>Description</th>
                     <th>Location</th>
                     <th>Accident</th>
                     <th>Belts</th>
@@ -80,14 +111,15 @@ documentList() {
                     <th>State</th>
                     <th>VehicleType</th>
                     <th>Make</th>
-                    <th>Charge</th>
+                    <th>Charge</th> */}
+                    <th>Comments</th>
                     </tr>
                 </thead>
                 <tbody>
                     {/* { this.documentList()} */}
                     <tr>
                     <td>{this.props.data.subAgency}</td>
-                    <td>{this.props.data.description}</td>
+                    {/* <td>{this.props.data.description}</td>
                     <td>{this.props.data.location}</td>
                     <td>{this.props.data.accident}</td>
                     <td>{this.props.data.belts}</td>
@@ -95,7 +127,8 @@ documentList() {
                     <td>{this.props.data.alcohol}</td>
                     <td>{this.props.data.state}</td>
                     <td>{this.props.data.vehicleType}</td>
-                    <td>{this.props.data.make}</td>
+                    <td>{this.props.data.make}</td> */}
+                    <td>{this.props.data.comments[0]}</td>
                 </tr>
                 </tbody>
                 </table>
@@ -111,6 +144,22 @@ documentList() {
             >
               View More
         </button>
+        <h3> Add comments:</h3>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+
+            <input  type="text"
+                required
+                className="form-control"
+                 value={this.state.username}
+                onChange={this.onChangeList}
+                />
+          </div>
+          <div className="form-group">
+            <input type="submit" value="submit" className="btn btn-primary" />
+          </div>
+        </form>
+
           {/* <h3>Traffic Violation Results Page:</h3> */}
          {/* <form onSubmit={this.handleAddSecondInput}>
            <div className="form-group">
